@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gym Rodríguez</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #101010;
+  color: white;
+}
+
+header {
+  background: #080808;
+  padding: 25px;
+  text-align: center;
+  border-bottom: 3px solid #39ff14;
+}
+
+header h1 {
+  color: #39ff14;
+  font-size: 35px;
+}
+
+header p {
+  color: #aaa;
+  margin-top: 8px;
+}
+
+.hero {
+  text-align: center;
+  padding: 65px 20px;
+  background: linear-gradient(135deg, #171717, #252525);
+}
+
+.hero h2 {
+  font-size: 35px;
+  margin-bottom: 15px;
+}
+
+.hero span {
+  color: #39ff14;
+}
+
+.hero p {
+  color: #bbb;
+  font-size: 17px;
+}
+
+.buscador {
+  display: block;
+  width: 90%;
+  max-width: 500px;
+  margin: 25px auto;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #39ff14;
+  background: #202020;
+  color: white;
+  font-size: 16px;
+}
+
+.contenedor {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+.contenedor h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.gimnasios {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit, minmax(250px, 1fr)
+  );
+  gap: 22px;
+}
+
+.card {
+  background: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 25px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #39ff14;
+}
+
+.card h3 {
+  color: #39ff14;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.card p {
+  color: #ccc;
+  margin: 12px 0;
+  line-height: 1.5;
+}
+
+.estrellas {
+  color: #ffd700;
+  font-size: 19px;
+  margin-bottom: 10px;
+}
+
+.card a {
+  display: inline-block;
+  text-decoration: none;
+  background: #39ff14;
+  color: black;
+  font-weight: bold;
+  padding: 12px 18px;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+.card a:hover {
+  background: white;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  background: #080808;
+  color: #999;
+  margin-top: 40px;
+  border-top: 2px solid #39ff14;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>GYM RODRÍGUEZ</h1>
+  <p>Los mejores lugares para entrenar</p>
+</header>
+
+<section class="hero">
+  <h2>Tu próximo nivel <span>comienza acá</span></h2>
+  <p>Descubrí gimnasios de General Rodríguez
+  y encontrá el lugar ideal para entrenar.</p>
+</section>
+
+<input
+  class="buscador"
+  type="text"
+  id="buscar"
+  placeholder="🔎 Buscar gimnasio..."
+>
+
+<section class="contenedor">
+  <h2>🏋️ Gimnasios destacados</h2>
+
+  <div class="gimnasios" id="lista"></div>
+</section>
+
+<footer>
+  <p>GYM RODRÍGUEZ © 2026</p>
+  <p>Directorio de gimnasios de General Rodríguez</p>
+</footer>
+
+<script>
+
+const gimnasios = [
+  {
+    nombre: "Gimnasio MAX",
+    nota: "4.8/5",
+    direccion: "General Rodríguez, Buenos Aires",
+    descripcion: "Entrenamiento de musculación y fuerza.",
+    maps: "Gimnasio MAX General Rodriguez"
+  },
+  {
+    nombre: "Olympia Gym",
+    nota: "4.9/5",
+    direccion: "Av. España 567",
+    descripcion: "Musculación, CrossFit y entrenamiento.",
+    maps: "Olympia Gym General Rodriguez"
+  },
+  {
+    nombre: "GYMBYDANTE",
+    nota: "4.8/5",
+    direccion: "General Rodríguez, Buenos Aires",
+    descripcion: "Entrenamiento y musculación.",
+    maps: "GYMBYDANTE General Rodriguez"
+  },
+  {
+    nombre: "EL ELEGIDO GYM",
+    nota: "4.9/5",
+    direccion: "Solanet 619",
+    descripcion: "Musculación y entrenamiento de fuerza.",
+    maps: "El Elegido Gym General Rodriguez"
+  },
+  {
+    nombre: "Spartan Sagardoy",
+    nota: "4.8/5",
+    direccion: "Gral. Las Heras 160",
+    descripcion: "Musculación y seguimiento personalizado.",
+    maps: "Spartan Sagardoy General Rodriguez"
+  },
+  {
+    nombre: "RPM GYM",
+    nota: "4.9/5",
+    direccion: "Belgrano 538",
+    descripcion: "Musculación y entrenamiento funcional.",
+    maps: "RPM Gym General Rodriguez"
+  }
+];
+
+const lista = document.getElementById("lista");
+
+function mostrarGimnasios(datos) {
+  lista.innerHTML = "";
+
+  datos.forEach(gym => {
+    lista.innerHTML += `
+      <div class="card">
+        <h3>${gym.nombre}</h3>
+        <div class="estrellas">★★★★★</div>
+        <p><b>Calificación:</b> ${gym.nota}</p>
+        <p><b>Dirección:</b> ${gym.direccion}</p>
+        <p>${gym.descripcion}</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(gym.maps)}"
+           target="_blank">
+           Ver ubicación
+        </a>
+      </div>
+    `;
+  });
+}
+
+mostrarGimnasios(gimnasios);
+
+document.getElementById("buscar").addEventListener(
+  "input", function() {
+    const texto = this.value.toLowerCase();
+
+    const filtrados = gimnasios.filter(gym =>
+      gym.nombre.toLowerCase().includes(texto)
+    );
+
+    mostrarGimnasios(filtrados);
+  }
+);
+
+</script>
+
+</body>
+</html>
